@@ -47,3 +47,14 @@ canvas {
 #k-number {
     width: 25px;
 }
+
+#reload {
+    cursor: pointer;
+    pointer-events: auto;
+}
+
+.reload {
+    color: white;
+    width: 20px;
+    height: 20px;
+}
