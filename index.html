@@ -5,9 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>KNN Visualizer</title>
     <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="checkbox.css" />
   </head>
   <body>
-    <div class="info">Prediction: <span id="prediction">?</span></div>
+    <div class="info-container">
+      <div class="info" style="width: 136px">
+        <div class="prediction-container">
+          <span>Prediction: </span>
+          <span id="prediction">?</span>
+        </div>
+      </div>
+      <div class="info">
+        <span>K: </span>
+        <span id="k-number">2</span>
+      </div>
+      <div class="info">
+        <div class="checkbox">
+          <input id="show-background" type="checkbox" name="show-background" />
+          <label for="show-background" style="margin-top: 1px"
+            >Show background</label
+          >
+        </div>
+      </div>
+    </div>
     <canvas id="canvas"></canvas>
     <script src="index.js"></script>
   </body>
