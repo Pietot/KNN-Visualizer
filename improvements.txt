@@ -1,0 +1,1 @@
+Add a way to move the points freely like at http://vision.stanford.edu/teaching/cs231n-demos/knn/
