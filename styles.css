@@ -10,12 +10,40 @@ canvas {
     background: #444;
 }
 
-.info {
+.info-container {
+    display: flex;
+    gap: 10px;
     position: absolute;
     top: 10px;
     left: 10px;
     color: white;
+    cursor: default;
+    pointer-events: none
+}
+
+.checkbox {
+    pointer-events: auto;
+    display: flex;
+    align-items: center;
+}
+
+.info {
+    display: flex;
+    align-items: center;
     background: rgba(0, 0, 0, 0.7);
     padding: 10px;
     border-radius: 5px;
+}
+
+.prediction-container {
+    display: flex;
+    width: 100%;
+}
+
+#prediction {
+    width: 60px;
+}
+
+#k-number {
+    width: 25px;
 }
