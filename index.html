@@ -8,14 +8,14 @@
     <link rel="stylesheet" href="checkbox.css" />
   </head>
   <body>
-    <div class="info-container">
-      <div class="info" style="width: 136px">
+    <div id="info-container" class="info-container">
+      <div id="info-prediction" class="info">
         <div class="prediction-container">
           <span>Prediction: </span>
           <span id="prediction">?</span>
         </div>
       </div>
-      <div class="info" style="gap: 20px">
+      <div id="info-background" class="info" style="gap: 20px">
         <span>Background quality: </span>
         <div class="checkbox">
           <input type="checkbox" name="high-quality" value="3" />
@@ -29,6 +29,10 @@
           <input type="checkbox" name="low-quality" value="50" />
           <label for="low-quality" style="margin-top: 1px">Low</label>
         </div>
+      </div>
+      <div class="info">
+        <span>K: </span>
+        <span id="k-number">2</span>
       </div>
       <div class="info" style="gap: 20px">
         <span>Number of points: </span>
@@ -45,9 +49,24 @@
           <label for="low-number" style="margin-top: 1px">10</label>
         </div>
       </div>
-      <div class="info">
-        <span>K: </span>
-        <span id="k-number">2</span>
+      <div class="info" style="gap: 20px">
+        <span>Number of classes: </span>
+        <div class="checkbox">
+          <input type="checkbox" name="2-class" value="2" />
+          <label for="2-class" style="margin-top: 1px">2</label>
+        </div>
+        <div class="checkbox">
+          <input type="checkbox" name="3-class" value="3" checked />
+          <label for="3-class" style="margin-top: 1px">3</label>
+        </div>
+        <div class="checkbox">
+          <input type="checkbox" name="4-class" value="4" />
+          <label for="4-class" style="margin-top: 1px">4</label>
+        </div>
+        <div class="checkbox">
+          <input type="checkbox" name="5-class" value="5" />
+          <label for="5-class" style="margin-top: 1px">5</label>
+        </div>
       </div>
       <div class="info">
         <div class="checkbox">
@@ -56,6 +75,12 @@
             >Show background</label
           >
         </div>
+      </div>
+      <div class="info" id="hide" style="display: none;">
+        <img src="hide.svg" alt="hide" class="reload" />
+      </div>
+      <div class="info" id="reload" style="display: none;">
+        <img src="show.svg" alt="show" class="reload" />
       </div>
       <div class="info" id="reload">
         <img src="reload.svg" alt="Reload" class="reload" />
