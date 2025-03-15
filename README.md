@@ -1,4 +1,4 @@
-# Lapyrinth
+# KNN Visualizer
 
 ![Localisation](https://img.shields.io/badge/Made_in-France-red?labelColor=blue)
 ![Language](https://img.shields.io/badge/Language-JavaScript-ffdf00)
