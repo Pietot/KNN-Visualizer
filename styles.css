@@ -53,6 +53,11 @@ canvas {
     width: 25px;
 }
 
+#hide, #show {
+    cursor: pointer;
+    pointer-events: auto;
+}
+
 #reload {
     cursor: pointer;
     pointer-events: auto;
