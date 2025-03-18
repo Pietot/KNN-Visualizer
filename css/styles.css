@@ -70,8 +70,17 @@ canvas {
     height: 20px;
 }
 
+#loading {
+    display: flex;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    color: white;
+    z-index: -1;
+}
+
 @media screen and (max-width: 426px) {
-    .info-container {
+    .info-container, #loading {
         font-size: smaller;
     }
 

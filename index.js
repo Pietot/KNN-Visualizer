@@ -2,14 +2,8 @@ const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 const TEXT_PREDICTION = document.getElementById("prediction");
 const K_NUMBER = document.getElementById("k-number");
+const LOADING_INDICATOR = document.getElementById("loading");
 
-const LOADING_INDICATOR = document.createElement("div");
-LOADING_INDICATOR.style.position = "fixed";
-LOADING_INDICATOR.style.top = "60px";
-LOADING_INDICATOR.style.left = "50%";
-LOADING_INDICATOR.style.color = "white";
-LOADING_INDICATOR.style.transform = "translateX(-50%)";
-document.body.appendChild(LOADING_INDICATOR);
 
 let numPoints = 50;
 let numClusters = 3;
@@ -179,7 +173,7 @@ let isGenerating = false;
 function generateBackgroundImage(quality = accuracy) {
   if (isGenerating) return;
   isGenerating = true;
-  LOADING_INDICATOR.textContent = "Loading...";
+  LOADING_INDICATOR.style.zIndex = 1;
 
   if (backgroundWorker) {
     backgroundWorker.terminate();
@@ -192,7 +186,7 @@ function generateBackgroundImage(quality = accuracy) {
       backgroundColor = e.data.imageData;
       kbackgroundColor = k;
       renderCanvas();
-      LOADING_INDICATOR.textContent = "";
+      LOADING_INDICATOR.style.zIndex = "";
       isGenerating = false;
     }
     backgroundWorker = null;
