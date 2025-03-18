@@ -3,6 +3,14 @@ const ctx = canvas.getContext("2d");
 const TEXT_PREDICTION = document.getElementById("prediction");
 const K_NUMBER = document.getElementById("k-number");
 
+const LOADING_INDICATOR = document.createElement('div');
+LOADING_INDICATOR.style.position = 'fixed';
+LOADING_INDICATOR.style.top = '60px';
+LOADING_INDICATOR.style.left = '50%';
+LOADING_INDICATOR.style.color = 'white';
+LOADING_INDICATOR.style.transform = 'translateX(-50%)';
+document.body.appendChild(LOADING_INDICATOR);
+
 let numPoints = 50;
 let numClusters = 3;
 let accuracy = 10;
@@ -165,22 +173,44 @@ function knn(px, py) {
   return { prediction, nearest, maxDist };
 }
 
-function generateBackgroundImage(quality = accuracy) {
-  let tempCanvas = document.createElement("canvas");
-  let tempCtx = tempCanvas.getContext("2d");
-  tempCanvas.width = canvas.width;
-  tempCanvas.height = canvas.height;
+let backgroundWorker = null;
+let isGenerating = false;
 
-  for (let x = 0; x < canvas.width; x += quality) {
-    for (let y = 0; y < canvas.height; y += quality) {
-      let { prediction } = knn(x, y);
-      tempCtx.fillStyle = prediction;
-      tempCtx.fillRect(x, y, quality, quality);
-    }
+function generateBackgroundImage(quality = accuracy) {
+  if (isGenerating) return;
+  isGenerating = true;
+  LOADING_INDICATOR.textContent = 'Loading...';
+
+  if (backgroundWorker) {
+    backgroundWorker.terminate();
   }
 
-  // Save the background image to avoid recalculating it uselessly
-  backgroundColor = tempCtx.getImageData(0, 0, canvas.width, canvas.height);
+  backgroundWorker = new Worker('background-worker.js');
+
+  backgroundWorker.onmessage = (e) => {
+    if (e.data.type === 'imageData') {
+      backgroundColor = e.data.imageData;
+      kbackgroundColor = k;
+      renderCanvas();
+      LOADING_INDICATOR.textContent = '';
+      isGenerating = false;
+    }
+    backgroundWorker = null;
+  };
+
+  const workerData = {
+    points: points.map(p => ({ 
+      x: p.x, 
+      y: p.y, 
+      category: p.category 
+    })),
+    k,
+    accuracy: quality,
+    width: canvas.width,
+    height: canvas.height
+  };
+
+  backgroundWorker.postMessage(workerData);
 }
 
 function drawBackgroundColor() {
@@ -364,3 +394,4 @@ if (window.screen.width <= 425) {
     document.getElementById("hide").style.display = "flex";
   });
 }
+
