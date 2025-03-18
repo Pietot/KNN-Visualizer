@@ -3,12 +3,12 @@ const ctx = canvas.getContext("2d");
 const TEXT_PREDICTION = document.getElementById("prediction");
 const K_NUMBER = document.getElementById("k-number");
 
-const LOADING_INDICATOR = document.createElement('div');
-LOADING_INDICATOR.style.position = 'fixed';
-LOADING_INDICATOR.style.top = '60px';
-LOADING_INDICATOR.style.left = '50%';
-LOADING_INDICATOR.style.color = 'white';
-LOADING_INDICATOR.style.transform = 'translateX(-50%)';
+const LOADING_INDICATOR = document.createElement("div");
+LOADING_INDICATOR.style.position = "fixed";
+LOADING_INDICATOR.style.top = "60px";
+LOADING_INDICATOR.style.left = "50%";
+LOADING_INDICATOR.style.color = "white";
+LOADING_INDICATOR.style.transform = "translateX(-50%)";
 document.body.appendChild(LOADING_INDICATOR);
 
 let numPoints = 50;
@@ -179,35 +179,35 @@ let isGenerating = false;
 function generateBackgroundImage(quality = accuracy) {
   if (isGenerating) return;
   isGenerating = true;
-  LOADING_INDICATOR.textContent = 'Loading...';
+  LOADING_INDICATOR.textContent = "Loading...";
 
   if (backgroundWorker) {
     backgroundWorker.terminate();
   }
 
-  backgroundWorker = new Worker('background-worker.js');
+  backgroundWorker = new Worker("background-worker.js");
 
   backgroundWorker.onmessage = (e) => {
-    if (e.data.type === 'imageData') {
+    if (e.data.type === "imageData") {
       backgroundColor = e.data.imageData;
       kbackgroundColor = k;
       renderCanvas();
-      LOADING_INDICATOR.textContent = '';
+      LOADING_INDICATOR.textContent = "";
       isGenerating = false;
     }
     backgroundWorker = null;
   };
 
   const workerData = {
-    points: points.map(p => ({ 
-      x: p.x, 
-      y: p.y, 
-      category: p.category 
+    points: points.map((p) => ({
+      x: p.x,
+      y: p.y,
+      category: p.category,
     })),
     k,
     accuracy: quality,
     width: canvas.width,
-    height: canvas.height
+    height: canvas.height,
   };
 
   backgroundWorker.postMessage(workerData);
@@ -394,4 +394,3 @@ if (window.screen.width <= 425) {
     document.getElementById("hide").style.display = "flex";
   });
 }
-
