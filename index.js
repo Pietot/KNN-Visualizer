@@ -125,7 +125,6 @@ function toggleColoredZone(event) {
     showColoredZone = !showColoredZone;
     document.getElementById("show-background").checked = showColoredZone;
 
-    console.log(k, kbackgroundColor);
     if (
       showColoredZone &&
       (!backgroundColor || k != kbackgroundColor || reloaded)
