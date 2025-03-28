@@ -172,7 +172,7 @@ let isGenerating = false;
 function generateBackgroundImage(quality = accuracy) {
   if (isGenerating) return;
   isGenerating = true;
-  LOADING_INDICATOR.style.zIndex = 1;
+  LOADING_INDICATOR.style.opacity = 1;
 
   if (backgroundWorker) {
     backgroundWorker.terminate();
@@ -185,7 +185,7 @@ function generateBackgroundImage(quality = accuracy) {
       backgroundColor = e.data.imageData;
       kbackgroundColor = k;
       renderCanvas();
-      LOADING_INDICATOR.style.zIndex = "";
+      LOADING_INDICATOR.style.opacity = 0;
       isGenerating = false;
     }
     backgroundWorker = null;
