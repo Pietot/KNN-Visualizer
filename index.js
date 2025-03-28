@@ -204,6 +204,7 @@ function generateBackgroundImage(quality = accuracy) {
   };
 
   backgroundWorker.postMessage(workerData);
+  reloaded = false;
 }
 
 function drawBackgroundColor() {
@@ -291,10 +292,6 @@ pointCheckbox.forEach((checkbox) => {
       pcb.checked = pcb === this;
     });
     reload();
-    if (showColoredZone) {
-      generateBackgroundImage();
-      renderCanvas();
-    }
     // unfocus the button
     this.blur();
   });
@@ -312,10 +309,6 @@ classeCheckbox.forEach((checkbox) => {
       ccb.checked = ccb === this;
     });
     reload();
-    if (showColoredZone) {
-      generateBackgroundImage();
-      renderCanvas();
-    }
     // unfocus the button
     this.blur();
   });
@@ -338,7 +331,7 @@ document
     this.blur();
   });
 document.getElementById("reload").addEventListener("click", () => {
-  reload();
+  reload(); 
 });
 
 canvas.addEventListener("mousemove", () => {
