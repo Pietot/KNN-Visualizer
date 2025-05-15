@@ -119,21 +119,19 @@ function resizeCanvas() {
 
 let showColoredZone = false;
 
-function toggleColoredZone(event) {
-  if (event.code === "Space") {
-    showColoredZone = !showColoredZone;
-    document.getElementById("show-background").checked = showColoredZone;
+function toggleColoredZone() {
+  showColoredZone = !showColoredZone;
+  document.getElementById("show-background").checked = showColoredZone;
 
-    if (
-      showColoredZone &&
-      (!backgroundColor || k != kbackgroundColor || reloaded)
-    ) {
-      generateBackgroundImage();
-      kbackgroundColor = k;
-    }
-
-    renderCanvas();
+  if (
+    showColoredZone &&
+    (!backgroundColor || k != kbackgroundColor || reloaded)
+  ) {
+    generateBackgroundImage();
+    kbackgroundColor = k;
   }
+
+  renderCanvas();
 }
 
 function knn(px, py) {
@@ -239,7 +237,6 @@ function reload() {
 }
 
 window.addEventListener("resize", resizeCanvas);
-window.addEventListener("keydown", toggleColoredZone);
 window.addEventListener("wheel", (event) => {
   // Wheel down
   if (event.deltaY > 0) {
@@ -380,8 +377,11 @@ if (window.screen.width <= 425) {
   });
 } else {
   let infoContainer = document.getElementById("info-container");
-  window.addEventListener("keydown", (event) => {
-    if (event.key === "h") {
+  window.addEventListener("keyup", (event) => {
+    console.log(event.code);
+    if (event.code === "Space") {
+      toggleColoredZone();
+    } else if (event.key === "h") {
       infoContainer.style.display == "none"
         ? (infoContainer.style.display = "flex")
         : (infoContainer.style.display = "none");
