@@ -385,6 +385,8 @@ if (window.screen.width <= 425) {
       infoContainer.style.display == "none"
         ? (infoContainer.style.display = "flex")
         : (infoContainer.style.display = "none");
+    } else if (event.key === "r") {
+      reload();
     }
   });
 }
