@@ -378,4 +378,13 @@ if (window.screen.width <= 425) {
     document.getElementById("show").style.display = "none";
     document.getElementById("hide").style.display = "flex";
   });
+} else {
+  let infoContainer = document.getElementById("info-container");
+  window.addEventListener("keydown", (event) => {
+    if (event.key === "h") {
+      infoContainer.style.display == "none"
+        ? (infoContainer.style.display = "flex")
+        : (infoContainer.style.display = "none");
+    }
+  });
 }
