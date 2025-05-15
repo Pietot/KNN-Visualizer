@@ -4,7 +4,6 @@ const TEXT_PREDICTION = document.getElementById("prediction");
 const K_NUMBER = document.getElementById("k-number");
 const LOADING_INDICATOR = document.getElementById("loading");
 
-
 let numPoints = 50;
 let numClusters = 3;
 let accuracy = 10;
@@ -331,7 +330,7 @@ document
     this.blur();
   });
 document.getElementById("reload").addEventListener("click", () => {
-  reload(); 
+  reload();
 });
 
 canvas.addEventListener("mousemove", () => {
