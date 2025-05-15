@@ -27,9 +27,11 @@ KNN-Visualizer is a simple tool to visualize the K-Nearest Neighbors algorithm i
 
 - You can choose between 10, 50 or 100 points
 
-- Show the background with all the predictions
+- Show the background with all the predictions (you can press the spacebar on the desktop version to show/hide it)
 
 - Change the position of the points without reloading the page
+
+- Show/hide the top stats (press the "h" key on the desktop version to show/hide it)
 
 ## 2 - Improve the project
 
