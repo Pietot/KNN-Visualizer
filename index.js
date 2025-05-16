@@ -15,6 +15,7 @@ let backgroundColor = null;
 let points = [];
 let mousePosition = { x: 0, y: 0 };
 let wheelTimeout = null;
+let keyArrowTimout = null;
 let isRendering = false;
 
 window.addEventListener("mousemove", function (event) {
@@ -386,6 +387,28 @@ if (window.screen.width <= 425) {
         : (infoContainer.style.display = "none");
     } else if (event.key === "r") {
       reload();
+    }
+  });
+  window.addEventListener("keydown", (event) => {
+    let isKeyArrow = event.key === "ArrowUp" || event.key === "ArrowDown";
+    if (event.key === "ArrowUp") {
+      k = Math.min(points.length, k + 1);
+      K_NUMBER.innerHTML = k;
+      renderCanvas();
+    } else if (event.key === "ArrowDown") {
+      k = Math.max(1, k - 1);
+      K_NUMBER.innerHTML = k;
+      renderCanvas();
+    }
+
+    if (isKeyArrow) {
+      clearTimeout(keyArrowTimout);
+      keyArrowTimout = setTimeout(() => {
+        if (showColoredZone) {
+          generateBackgroundImage();
+          renderCanvas();
+        }
+      }, 250);
     }
   });
 }
