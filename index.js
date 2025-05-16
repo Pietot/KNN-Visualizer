@@ -378,7 +378,6 @@ if (window.screen.width <= 425) {
 } else {
   let infoContainer = document.getElementById("info-container");
   window.addEventListener("keyup", (event) => {
-    console.log(event.code);
     if (event.code === "Space") {
       toggleColoredZone();
     } else if (event.key === "h") {
