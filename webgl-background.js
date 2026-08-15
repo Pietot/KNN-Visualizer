@@ -95,12 +95,12 @@ class WebGLBackground {
   constructor(canvas) {
     this.canvas = canvas;
     const gl = canvas.getContext("webgl2", {
-      antialias: false,
+      antialias: true,
       preserveDrawingBuffer: false,
     });
 
     if (!gl) {
-      throw new Error("WebGL2 n'est pas supporté par ce navigateur.");
+      throw new Error("WebGL2 is not supported in this browser.");
     }
 
     this.gl = gl;
@@ -116,7 +116,7 @@ class WebGLBackground {
     if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
       const info = gl.getShaderInfoLog(shader);
       gl.deleteShader(shader);
-      throw new Error("Erreur de compilation du shader: " + info);
+      throw new Error("Error compiling shader: " + info);
     }
     return shader;
   }
@@ -136,7 +136,7 @@ class WebGLBackground {
 
     if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
       const info = gl.getProgramInfoLog(program);
-      throw new Error("Erreur de linkage du programme WebGL: " + info);
+      throw new Error("Error linking WebGL program: " + info);
     }
 
     this.program = program;
