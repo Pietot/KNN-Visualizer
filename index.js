@@ -36,7 +36,7 @@ function random(seed, min = 0, max = 1) {
 
 function generatePoints() {
   const clusterCenters = [];
-  const clusterRadius = 200;
+  const clusterRadius = 400;
 
   // Cluster generation inside the canvas
   for (let i = 0; i < numClusters; i++) {
@@ -52,23 +52,23 @@ function generatePoints() {
     let x = random(
       seed + i,
       center.x - clusterRadius,
-      center.x + clusterRadius
+      center.x + clusterRadius,
     );
     let y = random(
       seed - i,
       center.y - clusterRadius,
-      center.y + clusterRadius
+      center.y + clusterRadius,
     );
     let category =
       clusterIndex === 0
         ? "red"
         : clusterIndex === 1
-        ? "blue"
-        : clusterIndex === 2
-        ? "orange"
-        : clusterIndex === 3
-        ? "green"
-        : "purple";
+          ? "blue"
+          : clusterIndex === 2
+            ? "orange"
+            : clusterIndex === 3
+              ? "green"
+              : "purple";
     points.push({ x, y, category });
   }
 }
@@ -77,9 +77,10 @@ function drawPoints() {
   points.forEach((p) => {
     ctx.fillStyle = p.category;
     ctx.beginPath();
-    ctx.arc(p.x, p.y, 6, 0, Math.PI * 2);
+    ctx.arc(p.x, p.y, 20, 0, Math.PI * 2);
     ctx.fill();
     ctx.strokeStyle = "black";
+    ctx.lineWidth = 3;
     ctx.stroke();
   });
 }
@@ -88,7 +89,7 @@ function drawCursorPrediction(x, y) {
   let { prediction, nearest, maxDist } = knn(x, y);
   TEXT_PREDICTION.textContent = prediction;
   ctx.beginPath();
-  ctx.arc(x, y, 10, 0, Math.PI * 2);
+  ctx.arc(x, y, 20, 0, Math.PI * 2);
   ctx.fillStyle = prediction;
   ctx.fill();
   ctx.strokeStyle = "black";
@@ -151,7 +152,7 @@ function knn(px, py) {
 
   let maxCount = Math.max(...Object.values(categoryCount));
   let mostFrequentCategories = Object.keys(categoryCount).filter(
-    (category) => categoryCount[category] === maxCount
+    (category) => categoryCount[category] === maxCount,
   );
 
   let prediction =

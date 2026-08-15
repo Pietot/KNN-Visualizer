@@ -3,6 +3,7 @@ body {
     overflow: hidden;
     text-align: center;
     font-family: Arial, sans-serif;
+    font-size: xx-large;
 }
 
 canvas {
@@ -42,7 +43,7 @@ canvas {
 }
 
 #info-prediction {
-    width: 136px;
+    width: 200px;
 }
 
 #prediction {

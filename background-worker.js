@@ -28,7 +28,7 @@ self.onmessage = function (e) {
       }, {});
 
       const prediction = Object.entries(counts).sort(
-        ([, a], [, b]) => b - a
+        ([, a], [, b]) => b - a,
       )[0][0];
 
       const rgba = colorMap[prediction];
@@ -50,6 +50,6 @@ self.onmessage = function (e) {
       type: "imageData",
       imageData: imageData,
     },
-    [imageData.data.buffer]
+    [imageData.data.buffer],
   );
 };
