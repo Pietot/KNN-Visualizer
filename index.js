@@ -222,22 +222,6 @@ window.addEventListener("wheel", (event) => {
   }
 });
 
-let qualityCheckboxes = document.querySelectorAll('input[name$="quality"]');
-qualityCheckboxes.forEach((checkbox) => {
-  checkbox.addEventListener("change", function () {
-    accuracy = parseInt(this.value);
-    qualityCheckboxes.forEach((qcb) => {
-      qcb.checked = qcb === this;
-    });
-    if (showColoredZone) {
-      generateBackgroundImage();
-      renderCanvas();
-    }
-    // unfocus the button
-    this.blur();
-  });
-});
-
 let pointCheckbox = document.querySelectorAll('input[name$="number"]');
 pointCheckbox.forEach((checkbox) => {
   checkbox.addEventListener("change", function () {
@@ -310,9 +294,6 @@ if (window.screen.width > 375 && window.screen.width <= 425) {
   document.getElementById("hide").style.display = "flex";
 } else if (window.screen.width <= 375) {
   let infoContainer = document.getElementById("info-container");
-  let infoBackground = document.getElementById("info-background");
-  infoBackground.style.gap = "10px";
-  infoContainer.insertBefore(infoBackground, infoContainer.children[3]);
   document.getElementById("hide").style.display = "flex";
 }
 
