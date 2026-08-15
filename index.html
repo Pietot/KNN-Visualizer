@@ -16,21 +16,6 @@
           <span id="prediction">?</span>
         </div>
       </div>
-      <div id="info-background" class="info" style="gap: 20px">
-        <span>Background quality: </span>
-        <div class="checkbox">
-          <input type="checkbox" name="high-quality" value="3" />
-          <label for="high-quality" style="margin-top: 1px">High</label>
-        </div>
-        <div class="checkbox">
-          <input type="checkbox" name="medium-quality" value="10" checked />
-          <label for="medium-quality" style="margin-top: 1px">Medium</label>
-        </div>
-        <div class="checkbox">
-          <input type="checkbox" name="low-quality" value="50" />
-          <label for="low-quality" style="margin-top: 1px">Low</label>
-        </div>
-      </div>
       <div class="info">
         <span>K: </span>
         <span id="k-number">2</span>
@@ -91,7 +76,9 @@
       <span>Loading </span>
       <img src="svg/loading.svg" alt="Loading..." class="svg" />
     </div>
+    <canvas id="bg-canvas"></canvas>
     <canvas id="canvas"></canvas>
+    <script src="webgl-background.js"></script>
     <script src="index.js"></script>
   </body>
 </html>

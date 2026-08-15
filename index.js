@@ -1,12 +1,13 @@
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
+const bgCanvas = document.getElementById("bg-canvas");
+const webglBackground = new WebGLBackground(bgCanvas);
 const TEXT_PREDICTION = document.getElementById("prediction");
 const K_NUMBER = document.getElementById("k-number");
 const LOADING_INDICATOR = document.getElementById("loading");
 
 let numPoints = 50;
 let numClusters = 3;
-let accuracy = 10;
 let seed = Math.random();
 let k = 3;
 let kbackgroundColor = k;
@@ -14,8 +15,6 @@ let reloaded = false;
 let backgroundColor = null;
 let points = [];
 let mousePosition = { x: 0, y: 0 };
-let wheelTimeout = null;
-let keyArrowTimout = null;
 let isRendering = false;
 
 window.addEventListener("mousemove", function (event) {
@@ -124,6 +123,7 @@ let showColoredZone = false;
 function toggleColoredZone() {
   showColoredZone = !showColoredZone;
   document.getElementById("show-background").checked = showColoredZone;
+  canvas.style.background = showColoredZone ? "transparent" : "#444";
 
   if (
     showColoredZone &&
@@ -165,53 +165,17 @@ function knn(px, py) {
   return { prediction, nearest, maxDist };
 }
 
-let backgroundWorker = null;
-let isGenerating = false;
-
-function generateBackgroundImage(quality = accuracy) {
-  if (isGenerating) return;
-  isGenerating = true;
-  LOADING_INDICATOR.style.opacity = 1;
-
-  if (backgroundWorker) {
-    backgroundWorker.terminate();
-  }
-
-  backgroundWorker = new Worker("background-worker.js");
-
-  backgroundWorker.onmessage = (e) => {
-    if (e.data.type === "imageData") {
-      backgroundColor = e.data.imageData;
-      kbackgroundColor = k;
-      renderCanvas();
-      LOADING_INDICATOR.style.opacity = 0;
-      isGenerating = false;
-    }
-    backgroundWorker = null;
-  };
-
-  const workerData = {
-    points: points.map((p) => ({
-      x: p.x,
-      y: p.y,
-      category: p.category,
-    })),
-    k,
-    accuracy: quality,
-    width: canvas.width,
-    height: canvas.height,
-  };
-
-  backgroundWorker.postMessage(workerData);
+function generateBackgroundImage() {
+  webglBackground.render(points, k, canvas.width, canvas.height, 1);
+  backgroundColor = true;
+  kbackgroundColor = k;
   reloaded = false;
+  LOADING_INDICATOR.style.opacity = 0;
 }
 
 function drawBackgroundColor() {
-  if (backgroundColor && showColoredZone) {
-    ctx.putImageData(backgroundColor, 0, 0);
-  } else {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-  }
+  bgCanvas.style.display = showColoredZone ? "block" : "none";
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
 
 function renderCanvas() {
@@ -252,14 +216,10 @@ window.addEventListener("wheel", (event) => {
 
   renderCanvas();
 
-  clearTimeout(wheelTimeout);
-
-  wheelTimeout = setTimeout(() => {
-    if (showColoredZone) {
-      generateBackgroundImage();
-      renderCanvas();
-    }
-  }, 250);
+  if (showColoredZone) {
+    generateBackgroundImage();
+    renderCanvas();
+  }
 });
 
 let qualityCheckboxes = document.querySelectorAll('input[name$="quality"]');
@@ -270,7 +230,7 @@ qualityCheckboxes.forEach((checkbox) => {
       qcb.checked = qcb === this;
     });
     if (showColoredZone) {
-      generateBackgroundImage(accuracy);
+      generateBackgroundImage();
       renderCanvas();
     }
     // unfocus the button
