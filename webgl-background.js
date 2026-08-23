@@ -53,8 +53,11 @@ void main() {
   }
 
   float counts[5];
+  float nearestCategoryDist[5];
+
   for (int c = 0; c < 5; c++) {
     counts[c] = 0.0;
+    nearestCategoryDist[c] = 1.0e30;
   }
 
   for (int kk = 0; kk < MAX_POINTS; kk++) {
@@ -75,14 +78,21 @@ void main() {
       used[minIdx] = true;
       int cat = int(uCategories[minIdx] + 0.5);
       counts[cat] += 1.0;
+      nearestCategoryDist[cat] =
+          min(nearestCategoryDist[cat], minDist);
     }
   }
 
   float maxCount = -1.0;
+  float bestNearestDist = 1.0e30;
   int predCat = 0;
   for (int c = 0; c < 5; c++) {
-    if (counts[c] > maxCount) {
+    if (counts[c] > maxCount ||
+        (counts[c] == maxCount &&
+         nearestCategoryDist[c] < bestNearestDist)) {
+
       maxCount = counts[c];
+      bestNearestDist = nearestCategoryDist[c];
       predCat = c;
     }
   }
