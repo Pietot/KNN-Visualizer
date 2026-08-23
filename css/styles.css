@@ -87,21 +87,8 @@ canvas {
   height: 20px;
 }
 
-#loading {
-  display: flex;
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
-  color: white;
-  z-index: 1;
-  opacity: 0;
-  transition: opacity 0.25s ease-in-out;
-  pointer-events: none;
-}
-
 @media screen and (max-width: 426px) {
-  .info-container,
-  #loading {
+  .info-container {
     font-size: smaller;
   }
 
