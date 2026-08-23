@@ -4,7 +4,6 @@ const bgCanvas = document.getElementById("bg-canvas");
 const webglBackground = new WebGLBackground(bgCanvas);
 const TEXT_PREDICTION = document.getElementById("prediction");
 const K_NUMBER = document.getElementById("k-number");
-const LOADING_INDICATOR = document.getElementById("loading");
 
 let numPoints = 50;
 let numClusters = 3;
@@ -182,7 +181,6 @@ function generateBackgroundImage() {
   backgroundColor = true;
   kbackgroundColor = k;
   reloaded = false;
-  LOADING_INDICATOR.style.opacity = 0;
 }
 
 function scheduleBackgroundGeneration() {
