@@ -15,6 +15,8 @@ let reloaded = false;
 let backgroundColor = null;
 let points = [];
 let mousePosition = { x: 0, y: 0 };
+let wheelTimeout = null;
+let keyArrowTimout = null;
 let isRendering = false;
 
 window.addEventListener("mousemove", function (event) {
@@ -134,6 +136,16 @@ function toggleColoredZone() {
   }
 
   renderCanvas();
+
+  clearTimeout(wheelTimeout);
+  clearTimeout(keyArrowTimout);
+
+  wheelTimeout = setTimeout(() => {
+    if (showColoredZone) {
+      generateBackgroundImage();
+      renderCanvas();
+    }
+  }, 250);
 }
 
 function knn(px, py) {
@@ -171,6 +183,21 @@ function generateBackgroundImage() {
   kbackgroundColor = k;
   reloaded = false;
   LOADING_INDICATOR.style.opacity = 0;
+}
+
+function scheduleBackgroundGeneration() {
+  clearTimeout(wheelTimeout);
+  clearTimeout(keyArrowTimout);
+
+  const timeout = setTimeout(() => {
+    if (showColoredZone) {
+      generateBackgroundImage();
+      renderCanvas();
+    }
+  }, 250);
+
+  wheelTimeout = timeout;
+  keyArrowTimout = timeout;
 }
 
 function drawBackgroundColor() {
@@ -217,8 +244,7 @@ window.addEventListener("wheel", (event) => {
   renderCanvas();
 
   if (showColoredZone) {
-    generateBackgroundImage();
-    renderCanvas();
+    scheduleBackgroundGeneration();
   }
 });
 
@@ -344,13 +370,7 @@ if (window.screen.width <= 425) {
     }
 
     if (isKeyArrow) {
-      clearTimeout(keyArrowTimout);
-      keyArrowTimout = setTimeout(() => {
-        if (showColoredZone) {
-          generateBackgroundImage();
-          renderCanvas();
-        }
-      }, 250);
+      scheduleBackgroundGeneration();
     }
   });
 }
