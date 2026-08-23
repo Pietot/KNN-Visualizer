@@ -123,7 +123,7 @@ let showColoredZone = false;
 function toggleColoredZone() {
   showColoredZone = !showColoredZone;
   document.getElementById("show-background").checked = showColoredZone;
-  canvas.style.background = showColoredZone ? "transparent" : "#444";
+  canvas.style.background = showColoredZone ? "transparent" : "#282c34";
 
   if (
     showColoredZone &&

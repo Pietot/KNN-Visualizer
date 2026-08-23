@@ -16,12 +16,12 @@ canvas {
 }
 
 #bg-canvas {
-  background: #444;
+  background: #282c34;
   z-index: 0;
 }
 
 #canvas {
-  background: #444;
+  background: #282c34;
   z-index: 1;
 }
 
