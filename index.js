@@ -149,8 +149,8 @@ function toggleColoredZone() {
 
 function knn(px, py) {
   let distances = points.map((p) => {
-    let dist = Math.hypot(p.x - px, p.y - py);
-    return { ...p, dist };
+    let dist2 = float32Dist2(p.x, p.y, px, py);
+    return { ...p, dist: Math.sqrt(dist2) };
   });
   distances.sort((a, b) => a.dist - b.dist);
   let nearest = distances.slice(0, k);
@@ -174,6 +174,12 @@ function knn(px, py) {
 
   let maxDist = nearest[k - 1].dist;
   return { prediction, nearest, maxDist };
+}
+
+function float32Dist2(ax, ay, bx, by) {
+  const dx = Math.fround(Math.fround(ax) - Math.fround(bx));
+  const dy = Math.fround(Math.fround(ay) - Math.fround(by));
+  return Math.fround(Math.fround(dx * dx) + Math.fround(dy * dy));
 }
 
 function generateBackgroundImage() {
